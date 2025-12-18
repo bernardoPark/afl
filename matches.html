@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AFL - 경기 일정표</title>
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="wrapper header-inner">
+        <a href="./index.html" class="logo">AFL</a>
+        <nav class="nav">
+          <a href="./matches.html" class="nav-link active">경기</a>
+          <a href="./standings.html" class="nav-link">순위</a>
+          <a href="./rules.html" class="nav-link">규칙</a>
+          <a href="./history.html" class="nav-link">역사</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main wrapper flow">
+      <h1 class="page-title">경기 일정표</h1>
+
+      <div class="month-tabs">
+        <a href="#" class="tab-item active" onclick="openTab(event, 'month-1')"
+          >1월</a
+        >
+        <a href="#" class="tab-item" onclick="openTab(event, 'month-2')">2월</a>
+        <a href="#" class="tab-item" onclick="openTab(event, 'month-3')">3월</a>
+      </div>
+
+      <div class="schedule-container flow" style="--flow-space: 0">
+        <div id="month-1" class="schedule-content active">
+          <div class="date-group">
+            <div class="date-header">1월 25일 (토)</div>
+            <div class="schedule-row">
+              <div class="stadium">피어스 스타디움</div>
+              <div class="matchup">
+                <span class="team home"
+                  >골웨이 <span class="flag maroon-white"></span
+                ></span>
+                <span class="score">1-12</span>
+                <span class="vs-divider"></span>
+                <span class="score special">0-9</span>
+                <span class="team away"
+                  ><span class="flag orange-white"></span> 아마</span
+                >
+              </div>
+              <div class="round-info">1R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">힐리 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >티론 <span class="flag white-red"></span
+                ></span>
+                <span class="score">2-13</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-9</span>
+                <span class="team away"
+                  ><span class="flag red-white"></span> 데리</span
+                >
+              </div>
+              <div class="round-info">1R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">크로크 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >더블린 <span class="flag blue-navy"></span
+                ></span>
+                <span class="score">1-17</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-15</span>
+                <span class="team away"
+                  ><span class="flag green-red"></span> 메이요</span
+                >
+              </div>
+              <div class="round-info">1R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">1월 26일 (일)</div>
+            <div class="schedule-row">
+              <div class="stadium">발리쉐논</div>
+              <div class="matchup">
+                <span class="team home"
+                  >도네갈 <span class="flag orange-green"></span
+                ></span>
+                <span class="score special">0-13</span>
+                <span class="vs-divider"></span>
+                <span class="score">1-14</span>
+                <span class="team away"
+                  ><span class="flag green-yellow"></span> 케리</span
+                >
+              </div>
+              <div class="round-info">1R</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="month-2" class="schedule-content">
+          <div class="date-group">
+            <div class="date-header">2월 1일 (토)</div>
+            <div class="schedule-row">
+              <div class="stadium">피어스 스타디움</div>
+              <div class="matchup">
+                <span class="team home"
+                  >아마 <span class="flag orange-white"></span
+                ></span>
+                <span class="score">1-23</span>
+                <span class="vs-divider"></span>
+                <span class="score special">0-18</span>
+                <span class="team away"
+                  ><span class="flag white-red"></span>티론</span
+                >
+              </div>
+              <div class="round-info">2R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">힐리 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >도네갈 <span class="flag orange-green"></span
+                ></span>
+                <span class="score">0-20</span>
+                <span class="vs-divider"></span>
+                <span class="score special">0-16</span>
+                <span class="team away"
+                  ><span class="flag blue-navy"></span> 더블린</span
+                >
+              </div>
+              <div class="round-info">2R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">2월 2일 (일)</div>
+            <div class="schedule-row">
+              <div class="stadium">셀틱 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >데리 <span class="flag red-white"></span
+                ></span>
+                <span class="score special">1-24</span>
+                <span class="vs-divider"></span>
+                <span class="score">5-15</span>
+                <span class="team away"
+                  ><span class="flag green-yellow"></span> 케리</span
+                >
+              </div>
+              <div class="round-info">2R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">머케일 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >메이요 <span class="flag green-red"></span
+                ></span>
+                <span class="score special">0-16</span>
+                <span class="vs-divider"></span>
+                <span class="score">0-26</span>
+                <span class="team away"
+                  ><span class="flag maroon-white"></span> 골웨이</span
+                >
+              </div>
+              <div class="round-info">2R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">2월 15일 (토)</div>
+            <div class="schedule-row">
+              <div class="stadium">오스틴 스택 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >케리 <span class="flag green-yellow"></span
+                ></span>
+                <span class="score special">0-14</span>
+                <span class="vs-divider"></span>
+                <span class="score">1-15</span>
+                <span class="team away"
+                  ><span class="flag blue-navy"></span> 더블린</span
+                >
+              </div>
+              <div class="round-info">3R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">피어스 스타디움</div>
+              <div class="matchup">
+                <span class="team home"
+                  >골웨이 <span class="flag maroon-white"></span
+                ></span>
+                <span class="score">1-12</span>
+                <span class="vs-divider"></span>
+                <span class="score special">0-15</span>
+                <span class="team away"
+                  ><span class="flag red-white"></span> 데리</span
+                >
+              </div>
+              <div class="round-info">3R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">2월 16일 (일)</div>
+            <div class="schedule-row">
+              <div class="stadium">피어스 스타디움</div>
+              <div class="matchup">
+                <span class="team home"
+                  >메이요 <span class="flag green-red"></span
+                ></span>
+                <span class="score">0-12</span>
+                <span class="vs-divider"></span>
+                <span class="score special">0-10</span>
+                <span class="team away"
+                  ><span class="flag white-red"></span> 티론</span
+                >
+              </div>
+              <div class="round-info">3R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">발리쉐논</div>
+              <div class="matchup">
+                <span class="team home"
+                  >도네갈 <span class="flag orange-green"></span
+                ></span>
+                <span class="score">0-21</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-10</span>
+                <span class="team away"
+                  ><span class="flag orange-white"></span> 아마</span
+                >
+              </div>
+              <div class="round-info">3R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">2월 22일 (토)</div>
+            <div class="schedule-row">
+              <div class="stadium">BOX IT 애슬레틱 그라운드</div>
+              <div class="matchup">
+                <span class="team home"
+                  >아마 <span class="flag orange-white"></span
+                ></span>
+                <span class="score">1-17</span>
+                <span class="vs-divider"></span>
+                <span class="score">1-17</span>
+                <span class="team away"
+                  ><span class="flag green-red"></span> 메이요</span
+                >
+              </div>
+              <div class="round-info">4R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">크로크 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >더블린 <span class="flag blue-navy"></span
+                ></span>
+                <span class="score">3-20</span>
+                <span class="vs-divider"></span>
+                <span class="score special">2-12</span>
+                <span class="team away"
+                  ><span class="flag red-white"></span> 데리</span
+                >
+              </div>
+              <div class="round-info">4R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">2월 23일 (일)</div>
+            <div class="schedule-row">
+              <div class="stadium">포메로이</div>
+              <div class="matchup">
+                <span class="team home"
+                  >티론 <span class="flag white-red"></span
+                ></span>
+                <span class="score special">2-13</span>
+                <span class="vs-divider"></span>
+                <span class="score">3-13</span>
+                <span class="team away"
+                  ><span class="flag green-yellow"></span> 케리</span
+                >
+              </div>
+              <div class="round-info">4R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">피어스 스타디움</div>
+              <div class="matchup">
+                <span class="team home"
+                  >골웨이 <span class="flag maroon-white"></span
+                ></span>
+                <span class="score">0-21</span>
+                <span class="vs-divider"></span>
+                <span class="score special">0-14</span>
+                <span class="team away"
+                  ><span class="flag orange-green"></span> 도네갈</span
+                >
+              </div>
+              <div class="round-info">4R</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="month-3" class="schedule-content">
+          <div class="date-group">
+            <div class="date-header">3월 1일 (토)</div>
+            <div class="schedule-row">
+              <div class="stadium">머케일 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >메이요 <span class="flag green-red"></span
+                ></span>
+                <span class="score">0-21</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-16</span>
+                <span class="team away"
+                  ><span class="flag green-yellow"></span> 케리</span
+                >
+              </div>
+              <div class="round-info">5R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">BOX IT 애슬레틱 그라운드</div>
+              <div class="matchup">
+                <span class="team home"
+                  >아마 <span class="flag orange-white"></span
+                ></span>
+                <span class="score">1-20</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-12</span>
+                <span class="team away"
+                  ><span class="flag blue-navy"></span> 더블린</span
+                >
+              </div>
+              <div class="round-info">5R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">3월 2일 (일)</div>
+            <div class="schedule-row">
+              <div class="stadium">투암 스타디움</div>
+              <div class="matchup">
+                <span class="team home"
+                  >골웨이 <span class="flag maroon-white"></span
+                ></span>
+                <span class="score">1-18</span>
+                <span class="vs-divider"></span>
+                <span class="score">1-18</span>
+                <span class="team away"
+                  ><span class="flag white-red"></span> 티론</span
+                >
+              </div>
+              <div class="round-info">5R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">발리쉐논</div>
+              <div class="matchup">
+                <span class="team home"
+                  >도네갈 <span class="flag orange-green"></span
+                ></span>
+                <span class="score">1-22</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-19</span>
+                <span class="team away"
+                  ><span class="flag red-white"></span> 데리</span
+                >
+              </div>
+              <div class="round-info">5R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">3월 15일 (토)</div>
+            <div class="schedule-row">
+              <div class="stadium">오스틴 스택 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >케리 <span class="flag green-yellow"></span
+                ></span>
+                <span class="score">2-21</span>
+                <span class="vs-divider"></span>
+                <span class="score special">0-17</span>
+                <span class="team away"
+                  ><span class="flag orange-white"></span> 아마</span
+                >
+              </div>
+              <div class="round-info">6R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">크로크 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >더블린 <span class="flag blue-navy"></span
+                ></span>
+                <span class="score">2-19</span>
+                <span class="vs-divider"></span>
+                <span class="score special">2-13</span>
+                <span class="team away"
+                  ><span class="flag maroon-white"></span> 골웨이</span
+                >
+              </div>
+              <div class="round-info">6R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">3월 16일 (일)</div>
+            <div class="schedule-row">
+              <div class="stadium">셀틱 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >데리 <span class="flag red-white"></span
+                ></span>
+                <span class="score special">1-17</span>
+                <span class="vs-divider"></span>
+                <span class="score">2-19</span>
+                <span class="team away"
+                  ><span class="flag green-red"></span> 메이요</span
+                >
+              </div>
+              <div class="round-info">6R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">레터케니</div>
+              <div class="matchup">
+                <span class="team home"
+                  >도네갈 <span class="flag orange-green"></span
+                ></span>
+                <span class="score special">0-19</span>
+                <span class="vs-divider"></span>
+                <span class="score">0-25</span>
+                <span class="team away"
+                  ><span class="flag white-red"></span> 티론</span
+                >
+              </div>
+              <div class="round-info">6R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">3월 23일 (일)</div>
+            <div class="schedule-row">
+              <div class="stadium">피어스 스타디움</div>
+              <div class="matchup">
+                <span class="team home"
+                  >골웨이 <span class="flag maroon-white"></span
+                ></span>
+                <span class="score special">2-19</span>
+                <span class="vs-divider"></span>
+                <span class="score">3-24</span>
+                <span class="team away"
+                  ><span class="flag green-yellow"></span> 케리</span
+                >
+              </div>
+              <div class="round-info">7R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">머케일 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >메이요 <span class="flag green-red"></span
+                ></span>
+                <span class="score">2-19</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-16</span>
+                <span class="team away"
+                  ><span class="flag orange-green"></span> 도네갈</span
+                >
+              </div>
+              <div class="round-info">7R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">BOX IT 애슬레틱 그라운드</div>
+              <div class="matchup">
+                <span class="team home"
+                  >아마 <span class="flag orange-white"></span
+                ></span>
+                <span class="score">4-24</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-18</span>
+                <span class="team away"
+                  ><span class="flag red-white"></span> 데리</span
+                >
+              </div>
+              <div class="round-info">7R</div>
+            </div>
+            <div class="schedule-row">
+              <div class="stadium">힐리 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >티론 <span class="flag white-red"></span
+                ></span>
+                <span class="score">2-13</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-9</span>
+                <span class="team away"
+                  ><span class="flag blue-navy"></span> 더블린</span
+                >
+              </div>
+              <div class="round-info">7R</div>
+            </div>
+          </div>
+
+          <div class="date-group">
+            <div class="date-header">3월 30일 (일)</div>
+            <div class="schedule-row">
+              <div class="stadium">크로크 파크</div>
+              <div class="matchup">
+                <span class="team home"
+                  >케리 <span class="flag green-yellow"></span
+                ></span>
+                <span class="score">1-18</span>
+                <span class="vs-divider"></span>
+                <span class="score special">1-12</span>
+                <span class="team away"
+                  ><span class="flag green-red"></span> 메이요</span
+                >
+              </div>
+              <div class="round-info">Final</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer wrapper">
+      <div class="footer-info flow">
+        <div class="info-group">
+          <h4>참고 자료 출처</h4>
+          <p>GAA | GAA Official Guide | GAA History Archive | Wikipedia</p>
+        </div>
+        <div class="info-group">
+          <h4>이미지 출처</h4>
+          <p>GAA | Wikipedia | Skysports</p>
+        </div>
+      </div>
+      <div class="footer-logo">GAA</div>
+    </footer>
+    <script>
+      function openTab(evt, monthId) {
+        // 1. 링크 클릭 시 페이지 위로 튀는 것 방지
+        evt.preventDefault();
+
+        // 2. 모든 탭 내용(schedule-content) 숨기기
+        var contents = document.getElementsByClassName("schedule-content");
+        for (var i = 0; i < contents.length; i++) {
+          contents[i].className = contents[i].className.replace(" active", "");
+        }
+
+        // 3. 모든 탭 버튼(tab-item)의 active 클래스 제거 (회색으로 만듦)
+        var tabs = document.getElementsByClassName("tab-item");
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].className = tabs[i].className.replace(" active", "");
+        }
+
+        // 4. 클릭한 탭의 내용 보여주기 및 탭 활성화 (검정색으로 만듦)
+        document.getElementById(monthId).className += " active";
+        evt.currentTarget.className += " active";
+      }
+    </script>
+  </body>
+</html>

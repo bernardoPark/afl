@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AFL - 팀 순위</title>
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="wrapper header-inner">
+        <a href="./index.html" class="logo">AFL</a>
+        <nav class="nav">
+          <a href="./matches.html" class="nav-link">경기</a>
+          <a href="./standings.html" class="nav-link active">순위</a>
+          <a href="./rules.html" class="nav-link">규칙</a>
+          <a href="./history.html" class="nav-link">역사</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main wrapper flow">
+      <h1 class="page-title">팀 순위</h1>
+
+      <section class="card standings-section">
+        <div class="table-container">
+          <table class="full-standing-table">
+            <thead>
+              <tr>
+                <th class="rank-col">순위</th>
+                <th class="team-col"></th>
+                <th>승점</th>
+                <th>경기</th>
+                <th>승</th>
+                <th>무</th>
+                <th>패</th>
+                <th class="form-col">최근 5경기</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="status-winner">
+                <td class="rank">1</td>
+                <td class="team-name">
+                  <span class="flag green-yellow"></span> 케리
+                </td>
+                <td class="points">8</td>
+                <td>7</td>
+                <td>4</td>
+                <td>0</td>
+                <td>3</td>
+                <td class="form">
+                  <span class="badge win">승</span>
+                  <span class="badge win">승</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge win">승</span>
+                  <span class="badge loss">패</span>
+                </td>
+              </tr>
+              <tr class="status-finalist">
+                <td class="rank">2</td>
+                <td class="team-name">
+                  <span class="flag green-red"></span> 메이요
+                </td>
+                <td class="points">9</td>
+                <td>7</td>
+                <td>4</td>
+                <td>1</td>
+                <td>2</td>
+                <td class="form">
+                  <span class="badge win">승</span>
+                  <span class="badge win">승</span>
+                  <span class="badge win">승</span>
+                  <span class="badge draw">무</span>
+                  <span class="badge win">승</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="rank">3</td>
+                <td class="team-name">
+                  <span class="flag maroon-white"></span> 골웨이
+                </td>
+                <td class="points">8</td>
+                <td>7</td>
+                <td>3</td>
+                <td>2</td>
+                <td>2</td>
+                <td class="form">
+                  <span class="badge loss">패</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge draw">무</span>
+                  <span class="badge win">승</span>
+                  <span class="badge win">승</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="rank">4</td>
+                <td class="team-name">
+                  <span class="flag orange-green"></span> 도네갈
+                </td>
+                <td class="points">8</td>
+                <td>7</td>
+                <td>4</td>
+                <td>0</td>
+                <td>3</td>
+                <td class="form">
+                  <span class="badge loss">패</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge win">승</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge win">승</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="rank">5</td>
+                <td class="team-name">
+                  <span class="flag blue-navy"></span> 더블린
+                </td>
+                <td class="points">8</td>
+                <td>7</td>
+                <td>4</td>
+                <td>0</td>
+                <td>3</td>
+                <td class="form">
+                  <span class="badge loss">패</span>
+                  <span class="badge win">승</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge win">승</span>
+                  <span class="badge win">승</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="rank">6</td>
+                <td class="team-name">
+                  <span class="flag orange-white"></span> 아마
+                </td>
+                <td class="points">7</td>
+                <td>7</td>
+                <td>3</td>
+                <td>1</td>
+                <td>3</td>
+                <td class="form">
+                  <span class="badge win">승</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge win">승</span>
+                  <span class="badge draw">무</span>
+                  <span class="badge loss">패</span>
+                </td>
+              </tr>
+              <tr class="status-relegation">
+                <td class="rank">7</td>
+                <td class="team-name">
+                  <span class="flag white-red"></span> 티론
+                </td>
+                <td class="points">7</td>
+                <td>7</td>
+                <td>3</td>
+                <td>1</td>
+                <td>3</td>
+                <td class="form">
+                  <span class="badge win">승</span>
+                  <span class="badge win">승</span>
+                  <span class="badge draw">무</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge loss">패</span>
+                </td>
+              </tr>
+              <tr class="status-relegation">
+                <td class="rank">8</td>
+                <td class="team-name">
+                  <span class="flag red-white"></span> 데리
+                </td>
+                <td class="points">1</td>
+                <td>7</td>
+                <td>0</td>
+                <td>1</td>
+                <td>6</td>
+                <td class="form">
+                  <span class="badge loss">패</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge loss">패</span>
+                  <span class="badge draw">무</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="standings-legend">
+          <div class="legend-item">
+            <span class="color-dot blue"></span> 리그 우승
+          </div>
+          <div class="legend-item">
+            <span class="color-dot green"></span> 결승 진출
+          </div>
+          <div class="legend-item">
+            <span class="color-dot red"></span> 리그 강등
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrapper">
+      <div class="footer-info flow">
+        <div class="info-group">
+          <h4>참고 자료 출처</h4>
+          <p>GAA | GAA Official Guide | GAA History Archive | Wikipedia</p>
+        </div>
+        <div class="info-group">
+          <h4>이미지 출처</h4>
+          <p>GAA | Wikipedia | Skysports</p>
+        </div>
+      </div>
+      <div class="footer-logo">GAA</div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,998 @@
+// ==============================================
+// 1. 설정 (Configuration)
+// ==============================================
+
+// 색상 변수
+$bg-color: #f5f7fa;
+$text-color: #333;
+$text-sub-color: #888; // 기본 회색 (네비게이션 등)
+$card-bg: #ffffff;
+$border-color: rgba(0, 0, 0, 0.05);
+$divider-color: #eee;
+$primary-color: #000; // 활성화 검정
+
+// 폰트 및 기타 설정
+$font-family: "Pretendard", sans-serif;
+$border-radius: 12px;
+
+// ✨ Composition 변수 (CSS Custom Properties)
+:root {
+  // Global Layout
+  --wrapper-max-width: 1200px;
+  --wrapper-padding: var(--space-s-l);
+  --flow-space: var(--space-s);
+
+  // Switcher Defaults (부모 너비에 따라 세로 전환)
+  --switcher-space: var(--space-m);
+  --grid-space: var(--space-m);
+
+  // Grid Defaults (최소 너비에 따라 자동 열 생성)
+  --grid-min-item-size: 16rem;
+  --grid-space: 1.5rem;
+  --space-3xs: clamp(0.25rem, 0.23rem + 0.11vw, 0.31rem); /* 약 4px ~ 5px */
+  --space-2xs: clamp(0.5rem, 0.46rem + 0.22vw, 0.63rem); /* 약 8px ~ 10px */
+  --space-xs: clamp(0.75rem, 0.68rem + 0.33vw, 0.94rem); /* 약 12px ~ 15px */
+  --space-s: clamp(1rem, 0.91rem + 0.43vw, 1.25rem); /* 약 16px ~ 20px */
+  --space-m: clamp(1.5rem, 1.36rem + 0.65vw, 1.88rem); /* 약 24px ~ 30px */
+  --space-l: clamp(2rem, 1.83rem + 0.87vw, 2.5rem); /* 약 32px ~ 40px */
+  --space-xl: clamp(3rem, 2.74rem + 1.3vw, 3.75rem); /* 약 48px ~ 60px */
+  --space-2xl: clamp(4rem, 3.65rem + 1.74vw, 5rem); /* 약 64px ~ 80px */
+  --space-3xl: clamp(6rem, 5.48rem + 2.61vw, 7.5rem); /* 약 96px ~ 120px */
+
+  /* 유동적 짝꿍 간격 (작은 화면에선 S, 큰 화면에선 L로 자동 변환) */
+  --space-s-l: clamp(1rem, 0.48rem + 2.61vw, 2.5rem);
+  /* ▲▲▲ [여기까지] Utopia 코드 끝 ▲▲▲ */
+}
+
+// ==============================================
+// 2. 믹스인 (Mixins)
+// ==============================================
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin flex-center-y {
+  display: flex;
+  align-items: center;
+}
+@mixin card-base {
+  background-color: $card-bg;
+  border-radius: $border-radius;
+  padding: var(--space-m);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  border: 1px solid $border-color;
+}
+
+// ==============================================
+// 3. ✨ Composition Layers (레이아웃 엔진)
+// ==============================================
+
+/* [Wrapper] 중앙 정렬 + 최대 너비 + 유동적 패딩 */
+.wrapper {
+  margin-inline: auto;
+  padding-inline: var(--wrapper-padding);
+  box-sizing: content-box;
+  width: min(var(--wrapper-max-width), 100% - (var(--wrapper-padding) * 2));
+}
+
+/* [Flow] 수직 간격 자동화 */
+.flow > * + * {
+  margin-top: var(--flow-space, 1.5rem);
+}
+
+/* [Switcher] 공간 부족 시 세로 전환 */
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--switcher-space);
+
+  > * {
+    flex-grow: 1;
+    // (임계값 - 100%) * 999 공식 사용
+    flex-basis: calc((var(--switcher-target-wrapper-width) - 100%) * 999);
+  }
+}
+
+/* [Grid] 공간에 맞춰 카드 자동 배치 (Auto-fit) */
+.grid {
+  display: grid;
+  gap: var(--grid-space);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--grid-min-item-size)), 1fr)
+  );
+
+  &[data-equal-row] {
+    align-items: stretch;
+  }
+}
+
+// ==============================================
+// 4. 글로벌 스타일 (Global)
+// ==============================================
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  font-family: $font-family;
+  background-color: $bg-color;
+  color: $text-color;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul,
+li {
+  list-style: none;
+}
+
+// ==============================================
+// 5. 컴포넌트 스타일 (Components)
+// ==============================================
+
+/* 헤더 */
+.header {
+  background-color: $card-bg;
+  padding: var(--space-s) 0;
+  margin-bottom: var(--space-xl);
+
+  .header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; // 왼쪽 정렬 (수정됨)
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .logo {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+  .nav {
+    display: flex;
+    gap: 30px;
+
+    .nav-link {
+      font-size: 16px;
+      color: $text-sub-color; // 기본 상태: 회색 (#888)
+      font-weight: 500;
+      transition: color 0.2s;
+
+      // 마우스 오버하거나 active 클래스가 있을 때만 검정색
+      &.active,
+      &:hover {
+        color: $primary-color;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+/* 메인 여백 */
+.main {
+  padding-bottom: var(--space-2xl);
+}
+
+/* 카드 공통 */
+.card {
+  @include card-base;
+
+  .card-header {
+    @include flex-between;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .more-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: $text-color;
+    }
+  }
+}
+
+/* 섹션 1: 경기 일정 (Grid) */
+.match-section {
+  .grid {
+    border-top: 1px solid $divider-color;
+  }
+
+  .match-item {
+    padding: 20px 20px 5px 20px;
+    border-right: 1px solid $divider-color;
+    &:last-child {
+      border-right: none;
+    }
+    // Grid 특성상 하단 보더는 상황에 따라 조정 필요하나 기본 디자인 유지
+
+    .match-date {
+      font-size: 14px;
+      color: $text-sub-color;
+      margin-bottom: 12px;
+    }
+    .match-score {
+      @include flex-between;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      .team {
+        @include flex-center-y;
+        gap: 8px;
+      }
+      &.special {
+        color: #888;
+      }
+    }
+  }
+}
+
+/* 섹션 2: 역사 & 순위 (Switcher) */
+.history-card {
+  @include card-base;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .history-image {
+    width: 100%;
+    height: 200px;
+    background-color: #ddd;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+    }
+  }
+  .card-body {
+    padding: 24px;
+    h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+  }
+}
+
+.standing-card {
+  @include card-base;
+  .table-container {
+    overflow-x: auto;
+  } // 테이블 가로 스크롤
+
+  .standing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: center;
+    white-space: nowrap;
+
+    th {
+      color: $text-sub-color;
+      font-weight: 500;
+      padding-bottom: 12px;
+      border-bottom: 1px solid $divider-color;
+      &:first-child {
+        text-align: left;
+      }
+    }
+    td {
+      padding: 12px 0;
+      border-bottom: 1px solid #f9f9f9;
+      font-weight: 700;
+    }
+    .team-name {
+      text-align: left;
+      @include flex-center-y;
+      gap: 8px;
+      font-weight: 600;
+    }
+  }
+}
+
+/* 팀 컬러 & 국기 유틸리티 */
+.color-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  &.maroon {
+    background-color: #800000;
+  }
+  &.orange {
+    background-color: #ff8c00;
+  }
+}
+.flag {
+  width: 18px;
+  height: 12px;
+  display: inline-block;
+  border: 1px solid #ddd;
+  &.green-red {
+    background: linear-gradient(to right, green 50%, red 50%);
+  }
+  &.green-yellow {
+    background: linear-gradient(to right, green 50%, yellow 50%);
+  }
+  &.maroon-white {
+    background: linear-gradient(to right, maroon 50%, white 50%);
+  }
+  &.yellow-green {
+    background: linear-gradient(to right, yellow 50%, green 50%);
+  }
+  &.blue-navy {
+    background: linear-gradient(to right, #6ca0dc 50%, #000080 50%);
+  }
+  &.orange-white {
+    background: linear-gradient(to right, orange 50%, white 50%);
+  }
+  &.orange-green {
+    background: linear-gradient(to right, orange 50%, green 50%);
+  }
+}
+
+/* 섹션 3: 규칙 (Grid) */
+.rules-section {
+  .grid {
+    border-top: 1px solid $divider-color;
+  }
+  .rule-item {
+    padding: 24px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-color;
+    text-align: center;
+    border-right: 1px solid $divider-color;
+    &:hover {
+      background-color: #f9f9f9;
+    }
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+/* 푸터 (수정됨: Switcher 제거, Flex 수동 제어) */
+.footer {
+  display: flex;
+  justify-content: space-between; // 양 끝 배치
+  align-items: flex-start; // 상단 기준 정렬
+  padding-top: 40px;
+  padding-bottom: 80px;
+  color: $text-color;
+  font-size: 14px;
+
+  .info-group {
+    // 내부 간격은 .flow가 처리함
+    h4 {
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+  }
+
+  .footer-logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #005e7d;
+  }
+}
+
+// ==============================================
+// 6. 페이지별 스타일: 경기 일정표 (matches.html)
+// ==============================================
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.month-tabs {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 0px solid $divider-color;
+  .tab-item {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ccc;
+    transition: color 0.2s;
+    &.active,
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.schedule-container {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  .date-group {
+    background-color: #ffffff; // 여기에 흰색 배경을 줍니다.
+    border-radius: 12px; // 모서리 둥글게
+    border: 1px solid $divider-color; // 테두리 추가
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02); // 그림자 추가
+    overflow: hidden; // 둥근 모서리 밖으로 내용이 튀어나가지 않게 자름
+
+    margin-bottom: 40px;
+  } // 박스 간 간격 (공간 벌리기)
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.date-header {
+  background-color: #f0f2f5;
+  padding: 16px 24px;
+  font-weight: 700;
+  font-size: 18px;
+  color: $text-color;
+  border-radius: 0px 0px 0 0;
+  margin-bottom: 0;
+}
+
+/* 경기 리스트 행 (Row) */
+.schedule-row {
+  display: grid;
+  // 전체 구조: [경기장(150px)] [대진 정보(나머지)] [라운드(40px)]
+  grid-template-columns: 150px 1fr 150px;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid $divider-color;
+  background-color: #fff;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  // 경기장 (왼쪽 고정)
+  .stadium {
+    font-size: 16px;
+    color: $text-sub-color;
+    text-align: left;
+    // 긴 경기장 이름 말줄임표 처리 (선택사항)
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+  }
+
+  // 라운드 (오른쪽 고정)
+  .round-info {
+    font-size: 16px;
+    color: #999;
+    text-align: right;
+  }
+
+  // ✨ 대진 정보 (중앙 정렬 핵심 수정)
+  .matchup {
+    display: grid;
+    // [홈팀] [점수] [공백] [점수] [원정팀]
+    grid-template-columns: 1fr 45px 60px 45px 1fr;
+    align-items: center;
+    width: 100%;
+
+    // 1. 홈팀 (왼쪽 팀)
+    .team.home {
+      justify-self: end; // 오른쪽 정렬 (점수판 방향)
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: right;
+      font-size: 15px;
+      font-weight: 700;
+
+      // ✨ 홈팀을 왼쪽으로 밀기 (점수판과 멀어짐)
+      // 이 숫자를 늘릴수록 더 왼쪽으로 갑니다.
+      margin-right: 10px;
+    }
+
+    // 2. 원정팀 (오른쪽 팀)
+    .team.away {
+      justify-self: start; // 왼쪽 정렬 (점수판 방향)
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      font-size: 15px;
+      font-weight: 700;
+
+      // ✨ 원정팀 간격 좁히기 (점수판과 가까워짐)
+      // 너무 떨어져 보이면 이 값을 0px ~ 10px 정도로 줄이세요.
+      margin-left: 10px;
+    }
+
+    // 3. 점수
+    .score {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.5px;
+      &.special {
+        color: #888;
+      }
+    }
+
+    // 4. VS 구분선
+    .vs-divider {
+      text-align: center;
+    }
+  }
+
+  // 모바일 반응형 대응
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; // 한 줄로 변경
+    gap: 12px;
+    padding: 16px;
+
+    .stadium {
+      text-align: center;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .round-info {
+      display: none;
+    } // 모바일에선 라운드 정보 숨김 (깔끔하게)
+
+    .matchup {
+      // 모바일에서도 그리드 유지하되 간격 조정
+      grid-template-columns: 1fr auto 10px auto 1fr;
+
+      .team {
+        font-size: 14px;
+        gap: 6px;
+      }
+      .score {
+        font-size: 15px;
+        width: auto;
+      }
+    }
+  }
+}
+/* ... 기존 코드 아래에 추가 ... */
+
+/* 탭 콘텐츠 제어 (JavaScript와 연동) */
+.schedule-content {
+  display: none; /* 기본적으로 숨김 */
+
+  &.active {
+    display: block; /* active 클래스가 붙으면 보임 */
+    animation: fadeIn 0.3s ease-in-out; /* 부드럽게 나타나기 */
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 추가된 팀 플래그 색상 (2월 일정용) */
+.flag {
+  // 기존 색상 유지...
+  // 새로 추가: 빨강-흰색 (데리, 티론 등)
+  &.red-white {
+    background: linear-gradient(to right, red 50%, white 50%);
+  }
+  // 새로 추가: 흰색-빨강 (티론 등 반대)
+  &.white-red {
+    background: linear-gradient(to right, white 50%, red 50%);
+  }
+}
+
+/* ... 기존 코드 아래에 추가 ... */
+
+// ==============================================
+// 7. 페이지별 스타일: 순위표 (Standings)
+// ==============================================
+
+.standings-section {
+  padding: 0; // 카드 패딩 제거 (테이블을 꽉 채우기 위함)
+  overflow: hidden; // 둥근 모서리 유지
+}
+
+.full-standing-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap; // 줄바꿈 방지
+
+  // 헤더 스타일
+  thead {
+    background-color: #f5f7fa; // 회색 배경
+    th {
+      padding: 16px 12px;
+      font-weight: 600;
+      color: #888;
+      border-bottom: 1px solid $divider-color;
+
+      &.rank-col {
+        width: 60px;
+      }
+      &.team-col {
+        text-align: left;
+        width: 200px;
+      }
+      &.form-col {
+        width: 180px;
+      }
+    }
+  }
+
+  // 본문 스타일
+  tbody tr {
+    border-bottom: 1px solid $divider-color;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    // [삭제] 기존의 border-left 관련 코드들을 모두 지우고 아래 방식으로 변경합니다.
+    // border-left: 4px solid transparent; ... (삭제됨)
+
+    // [신규] 첫 번째 셀(td)에 가상 요소를 사용하여 라인을 그립니다.
+    // 이렇게 하면 표의 정렬이 틀어지지 않습니다.
+    td:first-child {
+      position: relative; // 가상 요소의 기준점
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 4px; // 라인 두께
+        background-color: transparent; // 기본은 투명
+      }
+    }
+
+    // 상태별 색상 라인 (가상 요소 색상 변경)
+    &.status-winner td:first-child::before {
+      background-color: #4a90e2;
+    } // 파랑
+    &.status-finalist td:first-child::before {
+      background-color: #50e3c2;
+    } // 초록
+    &.status-relegation td:first-child::before {
+      background-color: #ff5a5f;
+    } // 빨강
+
+    td {
+      padding: 16px 12px;
+      vertical-align: middle;
+    }
+  }
+
+  .rank {
+    font-weight: 700;
+    color: #333;
+  }
+  .team-name {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .points {
+    font-weight: 800;
+    color: #333;
+  }
+
+  // 최근 5경기 배지 스타일
+  .form {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+
+    .badge {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid #ddd;
+
+      &.win {
+        color: #28a745;
+        border-color: #28a745;
+      } // 승 (초록)
+      &.draw {
+        color: #999;
+        border-color: #ccc;
+      } // 무 (회색)
+      &.loss {
+        color: #dc3545;
+        border-color: #dc3545;
+      } // 패 (빨강)
+    }
+  }
+}
+
+// 범례 스타일
+.standings-legend {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid $divider-color;
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  .color-dot {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    // border-radius: 2px; // 사각형
+    &.blue {
+      background-color: #4a90e2;
+    }
+    &.green {
+      background-color: #50e3c2;
+    }
+    &.red {
+      background-color: #ff5a5f;
+    }
+  }
+}
+
+// 모바일 반응형 (테이블 스크롤)
+@media (max-width: 768px) {
+  .full-standing-table {
+    th,
+    td {
+      padding: 12px 8px;
+      font-size: 13px;
+    }
+    .form .badge {
+      width: 20px;
+      height: 20px;
+      font-size: 10px;
+    }
+  }
+}
+
+/* ... 기존 코드 아래에 추가 ... */
+
+// ==============================================
+// 8. 페이지별 스타일: 규칙 (Rules)
+// ==============================================
+
+/* 개요 섹션 */
+.rule-intro {
+  margin-bottom: 40px;
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  p {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.6;
+  }
+}
+
+/* 구분선 */
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: $divider-color;
+  margin: 40px 0;
+}
+
+/* 규칙 블록 공통 */
+.rule-block {
+  .rule-header {
+    margin-bottom: 30px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+}
+
+/* 규칙 본문 레이아웃 (텍스트 : 이미지) */
+.rule-body {
+  display: grid;
+  // 왼쪽 텍스트(1.5배) : 오른쪽 이미지(1배)
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; // 모바일은 한 줄
+  }
+}
+
+/* 텍스트 그룹 스타일 */
+.text-group {
+  margin-bottom: 24px;
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #000;
+  }
+  ul {
+    list-style: disc;
+    padding-left: 20px;
+    li {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 6px;
+
+      // 하위 리스트 (Solo, Bounce 등)
+      .sub-list {
+        list-style: circle;
+        margin-top: 6px;
+        li {
+          color: #666;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+/* 시각 자료 영역 (오른쪽) */
+.rule-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .caption {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+  }
+}
+
+/* 시각 자료 박스 (이미지 컨테이너) */
+.visual-box {
+  width: 100%;
+  max-width: 250px; /* 박스 최대 너비 유지 */
+  margin: 0 auto; /* 가운데 정렬 */
+
+  /* 기존의 CSS 드로잉 설정(배경색, 테두리, flex 등) 제거 */
+  /* 이미지가 박스 안에 꽉 차도록 설정 */
+
+  img {
+    width: 100%;
+    height: auto; /* 이미지 비율 유지 */
+    display: block; /* 이미지 하단 미세한 공백 제거 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 살짝 그림자 추가 */
+  }
+
+  /* 캡션 텍스트가 있을 경우 스타일 */
+  .placeholder-text,
+  .caption {
+    display: none; /* 실제 이미지를 쓰므로 텍스트 숨김 (필요시 삭제) */
+  }
+}
+
+/* 카드 표시 (레드, 옐로우, 블랙) */
+.card-display {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+  .card-item {
+    width: 50px;
+    height: 70px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    &.red {
+      background-color: #ff4136;
+    }
+    &.yellow {
+      background-color: #ffdc00;
+    }
+    &.black {
+      background-color: #111111;
+    }
+  }
+}
+
+/* ... 기존 코드 아래에 추가 ... */
+
+// ==============================================
+// 9. 페이지별 스타일: 역사 (History)
+// ==============================================
+
+/* 역사 콘텐츠 컨테이너 */
+.history-content {
+  max-width: 800px; // 본문이 너무 퍼지지 않게 폭은 유지하되
+
+  // [수정 전] margin: 0 auto; -> 박스를 화면 가운데로 보냄
+  // [수정 후] margin: 0;      -> 박스를 왼쪽(기본)에 둠
+  margin: 0;
+
+  padding-bottom: 60px;
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 24px;
+    word-break: keep-all;
+    text-align: left; // 텍스트도 확실하게 왼쪽 정렬
+  }
+}
+
+/* 역사 이미지 피규어 */
+.history-figure {
+  margin: 20px 0 60px 0; // 이미지 위아래 여백
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px; // 둥근 모서리
+    display: block; // 이미지 하단 여백 제거
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); // 살짝 그림자
+  }
+
+  figcaption {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #888;
+    text-align: left; // 이미지 캡션 왼쪽 정렬 (이미지에 따름)
+  }
+}

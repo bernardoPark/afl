@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AFL - Composition Layout</title>
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="wrapper header-inner">
+        <div class="logo">AFL</div>
+        <nav class="nav">
+          <a href="./matches.html" class="nav-link">경기</a>
+          <a href="./standings.html" class="nav-link">순위</a>
+          <a href="./rules.html" class="nav-link">규칙</a>
+          <a href="./history.html" class="nav-link">역사</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main wrapper flow">
+      <section class="card match-section">
+        <div class="card-header">
+          <h2>경기</h2>
+          <a href="./matches.html" class="more-btn">
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </div>
+
+        <div class="grid" style="--grid-min-item-size: 16rem; --grid-space: 0">
+          <div class="match-item">
+            <div class="match-date">1. 25. 토</div>
+            <div class="match-score">
+              <div class="team">
+                <span class="flag maroon-white"></span>골웨이
+              </div>
+              <div class="score">1-12</div>
+            </div>
+            <div class="match-score">
+              <div class="team">
+                <span class="flag orange-white"></span>아마
+              </div>
+              <div class="match-score special">0-9</div>
+            </div>
+          </div>
+          <div class="match-item">
+            <div class="match-date">1. 25. 토</div>
+            <div class="match-score">
+              <div class="team"><span class="flag white-red"></span>티론</div>
+              <div class="score">2-13</div>
+            </div>
+            <div class="match-score">
+              <div class="team"><span class="flag red-white"></span>데리</div>
+              <div class="match-score special">1-9</div>
+            </div>
+          </div>
+          <div class="match-item">
+            <div class="match-date">1. 25. 토</div>
+            <div class="match-score">
+              <div class="team"><span class="flag blue-navy"></span>더블린</div>
+              <div class="score">1-17</div>
+            </div>
+            <div class="match-score">
+              <div class="team"><span class="flag green-red"></span>메이요</div>
+              <div class="match-score special">1-15</div>
+            </div>
+          </div>
+          <div class="match-item">
+            <div class="match-date">2. 1. 토</div>
+            <div class="match-score">
+              <div class="team">
+                <span class="flag orange-white"></span>아마
+              </div>
+              <div class="score">1-23</div>
+            </div>
+            <div class="match-score">
+              <div class="team"><span class="flag white-red"></span>티론</div>
+              <div class="match-score special">0-18</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div
+        class="switcher split-section"
+        style="--switcher-target-wrapper-width: 50rem; --switcher-space: 20px"
+      >
+        <div class="switcher">
+          <a href="./history.html" class="history-card">
+            <div class="history-image">
+              <img src="./image/historybanner.png" alt="역사 이미지" />
+            </div>
+            <div class="card-body">
+              <h3>게일릭 풋볼의 역사</h3>
+              <p>
+                아일랜드 전통 스포츠인 게일릭 풋볼은 지역 공동체 문화에서 뿌리를
+                내린 종목으로, 수백 년 동안 아일랜드인의 일상과 함께 성장해
+                왔습니다.
+              </p>
+            </div>
+          </a>
+        </div>
+
+        <article class="card standing-card">
+          <div class="card-header">
+            <h2>순위</h2>
+            <a href="./standings.html" class="more-btn">
+              <i class="fa-solid fa-chevron-right"></i>
+            </a>
+          </div>
+          <div class="table-container">
+            <table class="standing-table">
+              <thead>
+                <tr>
+                  <th>클럽</th>
+                  <th>경기</th>
+                  <th>승</th>
+                  <th>무</th>
+                  <th>패</th>
+                  <th>승점</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="team-name">
+                    <span class="flag green-yellow"></span>케리
+                  </td>
+                  <td>7</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td class="team-name">
+                    <span class="flag green-red"></span>메이요
+                  </td>
+                  <td>7</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td class="team-name">
+                    <span class="flag maroon-white"></span>골웨이
+                  </td>
+                  <td>7</td>
+                  <td>3</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td class="team-name">
+                    <span class="flag orange-green"></span>도네갈
+                  </td>
+                  <td>7</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>8</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+
+      <section class="card rules-section">
+        <div class="card-header">
+          <h2>규칙</h2>
+          <a href="./rules.html" class="more-btn">
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </div>
+        <div
+          class="grid rules-nav"
+          style="--grid-min-item-size: 12rem; --grid-space: 0"
+        >
+          <a href="./rules.html#rule-basic" class="rule-item">기본 규칙</a>
+          <a href="./rules.html#rule-score" class="rule-item"
+            >득점 및 경기 진행</a
+          >
+          <a href="./rules.html#rule-foul" class="rule-item">반칙 및 제재</a>
+          <a href="./rules.html#rule-referee" class="rule-item"
+            >심판 및 경기 운영</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer wrapper">
+      <div class="footer-info flow">
+        <div class="info-group">
+          <h4>참고 자료 출처</h4>
+          <p>GAA | GAA Official Guide | GAA History Archive | Wikipedia</p>
+        </div>
+        <div class="info-group">
+          <h4>이미지 출처</h4>
+          <p>GAA | Wikipedia | Skysports</p>
+        </div>
+      </div>
+
+      <div class="footer-logo">GAA</div>
+    </footer>
+  </body>
+</html>
